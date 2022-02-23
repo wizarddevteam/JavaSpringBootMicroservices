@@ -16,13 +16,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
-public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    private AuthenticationManager authenticationManager ;
+    private AuthenticationManager authenticationManager;
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -35,8 +35,8 @@ public class AuthorizationServerConfig   extends AuthorizationServerConfigurerAd
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         // TODO Auto-generated method stub
         clients.inMemory().withClient("Angular")
-                .secret(passwordEncoder.encode("123456")).scopes("read","write")
-                .authorizedGrantTypes("password","refresh_token")
+                .secret(passwordEncoder.encode("123456")).scopes("read", "write")
+                .authorizedGrantTypes("password", "refresh_token")
                 .accessTokenValiditySeconds(1800)
                 .refreshTokenValiditySeconds(3600);
     }

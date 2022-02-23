@@ -26,10 +26,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     UserService userService;
     boolean shouldAuthenticateAgainstThirdPartySystem = true;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String name = authentication.getName();
@@ -37,14 +39,13 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         var passEnc = passwordEncoder();
 
 
-
         User user = userService.findByUsername(name);
 
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("UserName no encontrado");
         }
         if (userService.isBlocked(user)) {
-            throw new BadCredentialsException("Usuario: "+ authentication.getPrincipal() +" bloqueado¡¡¡¡");
+            throw new BadCredentialsException("Usuario: " + authentication.getPrincipal() + " bloqueado¡¡¡¡");
         }
         if (passEnc.matches(password, user.getPassword())) {
             userService.loginSucceeded(user);
@@ -53,7 +54,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             return auth;
         } else {
             userService.loginFailed(user);
-            throw new BadCredentialsException("Usuario: " + authentication.getPrincipal() +" "+ user.getAttemp()+ " de 3 intentos para bloquearse");
+            throw new BadCredentialsException("Usuario: " + authentication.getPrincipal() + " " + user.getAttemp() + " de 3 intentos para bloquearse");
         }
     }
 

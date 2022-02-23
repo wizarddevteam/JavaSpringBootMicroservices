@@ -16,9 +16,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Component
-public class CustomTokenEnhancer  implements TokenEnhancer{
+public class CustomTokenEnhancer implements TokenEnhancer {
     @Autowired
     UserService userService;
+
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         UserDetails userDetail = (UserDetails) authentication.getPrincipal();
