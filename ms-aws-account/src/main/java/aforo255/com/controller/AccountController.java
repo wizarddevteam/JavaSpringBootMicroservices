@@ -3,6 +3,7 @@ package aforo255.com.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import aforo255.com.msawsaccount.metrics.IncreaseCounterAccount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,8 +21,13 @@ public class AccountController {
     @Autowired
     private IAccountService service;
 
+    @Autowired
+    private IncreaseCounterAccount increaseCounterAccount;
+
     @GetMapping
     public List<AccountResponse> listar() {
+
+        increaseCounterAccount.increaseCounter();
 
         return service.findAll()
                 .stream()
