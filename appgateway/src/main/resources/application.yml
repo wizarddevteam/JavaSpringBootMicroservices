@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: ms-security
+          uri: http://localhost:8010
+          predicates:
+            - Path=/api/security/**
+          filters:
+            - StripPrefix=2
+        - id: ms-deposit
+          uri: http://localhost:8006
+          predicates:
+            - Path=/api/deposit/**
+          filters:
+            - StripPrefix=2

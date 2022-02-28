@@ -40,7 +40,7 @@ public class UserService implements IUserService, UserDetailsService {
                     authorities);
         } catch (Exception ex) {
 
-            throw new UsernameNotFoundException("Error login");
+            throw new UsernameNotFoundException("Error login: "+ex);
         }
     }
 
