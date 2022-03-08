@@ -3,8 +3,11 @@ package aforo255.com.entity;
 import org.bson.codecs.pojo.annotations.BsonId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
+
 @Document(collection = "transaction")
-public class Transaction   {
+public class Transaction   implements Serializable {
+    private  static  final long serialVersionUID = 1L;
     @BsonId
     private String id ;
     private double amount ;
